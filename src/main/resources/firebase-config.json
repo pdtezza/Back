@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "appreceita-29cab",
+  "private_key_id": "a7a3c7dcb6deaad29169f11c3a5d696204848598",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7SkQ8CbvZarPn\nuMMdMlXlWRENsybFisJiuvs+YbhYHgfNkd7t8GDsZE1y1ESkDPsJ3J+Q72Si/9+K\nmSnnQl6BHSxeZJ8ex0UjyzEu92UF1kGFY0Oqgbp9E16uBAjIbCCDl5kgK8JPPpXD\nDmXHQJ5NnG25lBMdWs02CN1/6s0MJs1RwggL74CV6VF8FP9WljI2bCoHzd+/sYrW\nseMjpRncw9YhlQURXqtPi/qTAWQ2txaIAqnjb2d7ADYL/oz80gyWfAUyEbyFG4c9\nkwOaGi8JNuoSW9j3P1E/vI/RgXTNY6g9051ZlOSRB44OQ2th6G2FaFAXa0Yf97BX\nekit0/qfAgMBAAECggEADgvE0EfembCh62f04hSrUnb6i297IeeFKohhXU1Q2PLv\nnOAquueDLVdcY5c9ypvam+O659C8WGkeJ7PS67ATjFVWxYGAWXuSWNvdRWtyXRyz\nb0CBi6ENDmJMgHp2+ij5y0SsTDhb6zuDWcyTn3zeIm3v4LIVOOddaocBrZ07YYTK\nh/hnHFak2N6qT0is3jdAZUPow+9QRT6SZtzd8MIpU9BZFFtjMOpTkpkNwH+yCe6D\nGWoKCr0uESmoagdHNkpDC4vzyJrnlwHzRGLrzKhiV901k87Am+v+Gw25lc31LFFk\nsUNvvQpRYmqp0TaI3+l+uNej3TGhajTCj0z3HHWg2QKBgQDqSmzdBbZD+/kGj5w9\nAV4KgyUueuLRQhPYNkAzmbCXbr7TZVzUX85SdY/7Ajlisey00IZRnNPz5kf39qUG\n+BmqYpvFQGzFvhDpUcUS3xoCyXslPP3vhoUNkYzjZnUDGDQZwry0hp+fx2WWW+nd\n/eLY9Vgg4l93n243j8WzbncBEwKBgQDMpPJblNipHuLYY/Te7vgpjGfY0U1iHGF0\nDKnlai18i577GBLrqiQJN39Jmi94wwEEiioGq2GK5boWaR5/h74Ydaj4TCIQJc8R\nozAB8MueWvIE2HmMLBmG+PALPPoPJdEtW/zd3Hyd3hmLKDNr0wx5g0iOYEBURBvY\nF+PAP3sdxQKBgCH4FHyfPWPx/pMi80YtEpN3nEZ27rfkWrg4dWqF2AK8vdIsmh74\nnRN7lBqSoftbTLSSn0bp9BkixECBdD/kbOQ1U9xvkNXCzvTlNCueSUkqKT6m7zJx\nUI09Ey5NRp3iPnuVroKGGlKyOFpqjSfwjZljSRnLeIgBh5tqrwFq/LodAoGAH/AO\nMuTD+4DqfkL7UF+TM0jKXDguD4XGX8oqKbesaaeQpDdZnJXtEdMrdl0t03b7ja3S\naUAN9RNtO1okfFq+/CpAuJ+JIWQFMQd60pK19HzVEJSIQ6wOP9ZSAC8AB6UrRBz7\nFdT3Tdv/uIwJmmZRqBUpGa9D2uLWRZ9U2AgQOtECgYEAmycB6+zAC6zTQ0hzbFZC\naQHIqPysH5O/c8LKlbTvv3UiOFs+Ne4iB65J8nQsB6li0diEgTJKbjKAl/GUiXq/\nyFsswTuVZU/8uuvYq1GYGCF6Xe4esizX0eq+UMnTrBetXElycK9GiLdb8SLWA7CO\neFGO8A3BJOUcwh4E7OcvwVM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@appreceita-29cab.iam.gserviceaccount.com",
+  "client_id": "114092045579295841558",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40appreceita-29cab.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

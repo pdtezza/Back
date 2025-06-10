@@ -14,21 +14,18 @@ import jakarta.annotation.PostConstruct;
 public class FirebaseConfig {
 
     @PostConstruct
-    @SuppressWarnings("UseSpecificCatch")
-    public void inicializar() {
+    public void initialize() {
         try {
-            InputStream serviceAccount = getClass()
-                    .getClassLoader()
-                    .getResourceAsStream("firebase-config.json");
+            InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("firebase-config.json");
 
             FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("https://SEU-PROJETO.firebaseio.com") // ou Firestore
-                    .build();
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .build();
 
-            FirebaseApp.initializeApp(options);
+            if (FirebaseApp.getApps().isEmpty()) {
+                FirebaseApp.initializeApp(options);
+            }
             System.out.println("Firebase inicializado com sucesso!");
-
         } catch (Exception e) {
             System.out.println("Erro ao inicializar Firebase: " + e.getMessage());
         }

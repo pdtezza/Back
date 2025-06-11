@@ -62,4 +62,12 @@ public class ReceitaService {
         docRef.delete();
         return "Receita deletada!";
     }
+
+    public List<QueryDocumentSnapshot> listarReceitasPublicas() throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> query = db.collection(COLLECTION_NAME)
+                                           .whereEqualTo("privado", false)
+                                           .get();
+        return query.get().getDocuments();
+    }
 }

@@ -52,4 +52,9 @@ public class ReceitaController {
         String autorId = (String) request.getAttribute("firebaseUid");
         return receitaService.deletarReceita(id, autorId);
     }
+
+    @GetMapping("/publicas")
+    public List<QueryDocumentSnapshot> buscarPublicas() throws ExecutionException, InterruptedException {
+        return receitaService.listarReceitasPublicas();
+    }
 }

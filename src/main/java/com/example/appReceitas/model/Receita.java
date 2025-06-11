@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Receita {
+    private String id;
     private String titulo;
     private String descricao;
     private String imagemUrl;

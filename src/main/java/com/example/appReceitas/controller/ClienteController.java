@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.appReceitas.model.Cliente;
 import com.example.appReceitas.service.ClienteService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -26,5 +28,19 @@ public class ClienteController {
         @PostMapping("/esqueci-senha")
     public String esqueciSenha(@RequestParam String email) {
         return clienteService.enviarLinkRedefinicaoSenha(email);
+    }
+    @PostMapping("/favoritar")
+    public String favoritarReceita(@RequestParam String receitaId, HttpServletRequest request) throws Exception {
+    String clienteId = (String) request.getAttribute("firebaseUid");
+    if (clienteId == null || clienteId.isEmpty()) {
+        return "Erro: usuário não autenticado!";
+    }
+    return clienteService.favoritarReceita(clienteId, receitaId);
+    }
+
+    @PostMapping("/desfavoritar")
+    public String desfavoritarReceita(@RequestParam String receitaId, HttpServletRequest request) throws Exception {
+        String clienteId = (String) request.getAttribute("firebaseUid");
+        return clienteService.desfavoritarReceita(clienteId, receitaId);
     }
 }

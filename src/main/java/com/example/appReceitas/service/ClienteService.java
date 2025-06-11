@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.appReceitas.model.Cliente;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,6 +76,19 @@ public class ClienteService {
         } catch (Exception e) {
             return "Erro inesperado: " + e.getMessage();
         }
+    }
+    public String favoritarReceita(String clienteId, String receitaId) throws Exception {
+    Firestore db = FirestoreClient.getFirestore();
+    DocumentReference docRef = db.collection("clientes").document(clienteId);
+    docRef.update("receitasFavoritas", FieldValue.arrayUnion(receitaId));
+    return "Receita favoritada!";
+    }
+
+    public String desfavoritarReceita(String clienteId, String receitaId) throws Exception {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection("clientes").document(clienteId);
+        docRef.update("receitasFavoritas", FieldValue.arrayRemove(receitaId));
+        return "Receita removida dos favoritos!";
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.appReceitas.config;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +27,7 @@ public class FirebaseConfig {
                 FirebaseApp.initializeApp(options);
             }
             System.out.println("Firebase inicializado com sucesso!");
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Erro ao inicializar Firebase: " + e.getMessage());
         }
     }

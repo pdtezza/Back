@@ -11,4 +11,5 @@ public class Cliente {
     private String cpf;
     private String email;
     private List<String> receitasFavoritas; 
+    private String fotoPerfil; 
 }

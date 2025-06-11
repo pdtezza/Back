@@ -65,7 +65,7 @@ public class ReceitaService {
 
     public List<QueryDocumentSnapshot> listarReceitasPublicas() throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-        ApiFuture<QuerySnapshot> query = db.collection(COLLECTION_NAME)
+        ApiFuture<QuerySnapshot> query = db.collection(COLLECTION)
                                            .whereEqualTo("privado", false)
                                            .get();
         return query.get().getDocuments();

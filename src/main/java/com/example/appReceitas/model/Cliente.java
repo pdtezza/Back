@@ -10,6 +10,7 @@ public class Cliente {
     private String nome;
     private String cpf;
     private String email;
+    private String senha; 
     private List<String> receitasFavoritas; 
     private String fotoPerfil; 
 }

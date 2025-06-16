@@ -40,7 +40,7 @@ public String cadastrarCliente(@RequestBody Cliente novoCliente) throws Exceptio
     // 1. Cadastra usuário no Auth (Firebase)
     UserRecord.CreateRequest request = new UserRecord.CreateRequest()
             .setEmail(novoCliente.getEmail())
-            .setPassword(novoCliente.getSenha())  // Adicione getSenha() no seu modelo (ou pegue do DTO)
+            .setPassword(novoCliente.getSenha())  
             .setDisplayName(novoCliente.getNome());
 
     UserRecord userRecord = FirebaseAuth.getInstance().createUser(request);
@@ -49,7 +49,14 @@ public String cadastrarCliente(@RequestBody Cliente novoCliente) throws Exceptio
     Firestore db = FirestoreClient.getFirestore();
     // Não salve a senha no Firestore!
     novoCliente.setSenha(null);
+    novoCliente.setId(userRecord.getUid());
+
+    if (novoCliente.getReceitasFavoritas() == null) {
+        novoCliente.setReceitasFavoritas(new ArrayList<>());
+    }
+    
     db.collection("clientes").document(userRecord.getUid()).set(novoCliente);
+
 
     return "Cliente cadastrado com sucesso! UID: " + userRecord.getUid();
     }   
@@ -108,26 +115,7 @@ public String cadastrarCliente(@RequestBody Cliente novoCliente) throws Exceptio
         return "Conta excluída com sucesso!";
     }
 
-    // 5. (Opcional) Favoritar/desfavoritar receitas
-    @PostMapping("/favoritar")
-    public String favoritarReceita(@RequestParam String receitaId, HttpServletRequest request) throws Exception {
-        String clienteId = (String) request.getAttribute("firebaseUid");
-        Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("clientes").document(clienteId);
-        docRef.update("receitasFavoritas", com.google.cloud.firestore.FieldValue.arrayUnion(receitaId));
-        return "Receita favoritada!";
-    }
 
-    @PostMapping("/desfavoritar")
-    public String desfavoritarReceita(@RequestParam String receitaId, HttpServletRequest request) throws Exception {
-        String clienteId = (String) request.getAttribute("firebaseUid");
-        Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("clientes").document(clienteId);
-        docRef.update("receitasFavoritas", com.google.cloud.firestore.FieldValue.arrayRemove(receitaId));
-        return "Receita removida dos favoritos!";
-    }
-
-    // 6. (Opcional) Enviar link de redefinição de senha
     @PostMapping("/esqueci-senha")
     public String esqueciSenha(@RequestParam String email) {
         try {

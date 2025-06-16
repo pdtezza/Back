@@ -1,7 +1,8 @@
 package com.example.appReceitas.model;
 
-import lombok.Data;
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class Receita {
@@ -16,4 +17,6 @@ public class Receita {
     private boolean privado;
     private String autorId;
 
+    private int likes;         
+    private int visualizacoes; 
 }

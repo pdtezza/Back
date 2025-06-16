@@ -13,7 +13,7 @@ public class FilterConfig {
     public FilterRegistrationBean<FirebaseTokenFilter> firebaseFilterRegistration(FirebaseTokenFilter filter) {
         FilterRegistrationBean<FirebaseTokenFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(filter);
-        //registration.addUrlPatterns("/receitas/*", "/comentarios/*"); // coloque aqui os endpoints que devem exigir login
+        registration.addUrlPatterns("/receitas/*", "/comentarios/*"); // coloque aqui os endpoints que devem exigir login
         registration.setOrder(1);
         return registration;
     }

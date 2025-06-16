@@ -8,7 +8,6 @@ import lombok.Data;
 public class Cliente {
     private String id;
     private String nome;
-    private String cpf;
     private String email;
     private String senha; 
     private List<String> receitasFavoritas; 

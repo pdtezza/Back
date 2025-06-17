@@ -1,7 +1,10 @@
 package com.example.appReceitas.config;
 
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.context.annotation.Configuration;
 
@@ -9,26 +12,31 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
-import jakarta.annotation.PostConstruct;
-
 @Configuration
 public class FirebaseConfig {
 
     @PostConstruct
-    public void initialize() {
+    public void init() {
         try {
-            InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("firebase-config.json");
+            String firebaseConfig = System.getenv("FIREBASE_CONFIG_JSON");
 
-            FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .build();
+            if (firebaseConfig == null || firebaseConfig.isEmpty()) {
+                throw new RuntimeException("FIREBASE_CONFIG_JSON não configurado!");
+            }
+
+            InputStream serviceAccount = new ByteArrayInputStream(firebaseConfig.getBytes(StandardCharsets.UTF_8));
+
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
 
             if (FirebaseApp.getApps().isEmpty()) {
                 FirebaseApp.initializeApp(options);
+                System.out.println("✅ Firebase inicializado com sucesso!");
             }
-            System.out.println("Firebase inicializado com sucesso!");
-        } catch (IOException e) {
-            System.out.println("Erro ao inicializar Firebase: " + e.getMessage());
+
+        } catch (Exception e) {
+            System.out.println("❌ Erro ao inicializar Firebase: " + e.getMessage());
         }
     }
 }

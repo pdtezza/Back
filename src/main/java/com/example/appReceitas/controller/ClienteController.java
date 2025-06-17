@@ -8,6 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.appReceitas.model.Cliente;
+import com.example.appReceitas.model.Receita;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.storage.Blob;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserRecord;
@@ -59,8 +63,20 @@ public String cadastrarCliente(@RequestBody Cliente novoCliente) throws Exceptio
 
 
     return "Cliente cadastrado com sucesso! UID: " + userRecord.getUid();
-    }   
-   
+    } 
+      
+    @GetMapping("/{usuarioId}")
+    public Cliente getClientePorId(@PathVariable String usuarioId) throws Exception {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection("clientes").document(usuarioId);
+        Cliente cliente = docRef.get().get().toObject(Cliente.class);
+        if (cliente != null) {
+            cliente.setId(docRef.getId());
+            return cliente;
+        } else {
+            throw new Exception("Cliente não encontrado");
+        }
+    }
    
     @GetMapping("/perfil")
     public Cliente getPerfil(HttpServletRequest request) throws Exception {
@@ -159,4 +175,45 @@ public String cadastrarCliente(@RequestBody Cliente novoCliente) throws Exceptio
 
         return "Foto de perfil enviada com sucesso! URL: " + url;
     }
+
+    @GetMapping("/favoritas")
+    public List<Receita> getReceitasFavoritas(@RequestParam String clienteId) throws Exception {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection("clientes").document(clienteId);
+        Cliente cliente = docRef.get().get().toObject(Cliente.class);
+
+        List<Receita> favoritas = new ArrayList<>();
+        if (cliente != null && cliente.getReceitasFavoritas() != null) {
+            for (String receitaId : cliente.getReceitasFavoritas()) {
+                DocumentReference receitaRef = db.collection("receitas").document(receitaId);
+                DocumentSnapshot snap = receitaRef.get().get();
+                Receita receita = snap.toObject(Receita.class);
+                if (receita != null) {
+                    receita.setId(snap.getId()); // Garante que o campo id está certo
+                    favoritas.add(receita);
+                }
+            }
+        }
+        return favoritas;
+    }
+    @GetMapping("/por-email")
+    public Cliente getClientePorEmail(@RequestParam String email) throws Exception {
+        Firestore db = FirestoreClient.getFirestore();
+        List<QueryDocumentSnapshot> documentos = db.collection("clientes")
+            .whereEqualTo("email", email)
+            .get()
+            .get()
+            .getDocuments();
+
+        if (!documentos.isEmpty()) {
+            DocumentSnapshot doc = documentos.get(0);
+            Cliente cliente = doc.toObject(Cliente.class);
+            if (cliente != null) {
+                cliente.setId(doc.getId());  // <<< ESSENCIAL: devolve o ID do documento (usuarioId)
+                return cliente;
+            }
+        }
+        throw new Exception("Usuário não encontrado com esse email.");
+    }
+
 }
